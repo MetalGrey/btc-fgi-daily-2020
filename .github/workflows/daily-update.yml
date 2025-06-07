@@ -1,0 +1,39 @@
+name: Daily Dataset Update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  
+  workflow_dispatch:    
+
+jobs:
+  update-dataset:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install kaggle
+
+    - name: Setup Kaggle credentials
+      run: |
+        mkdir -p ~/.kaggle
+        echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
+        chmod 600 ~/.kaggle/kaggle.json
+
+    - name: Run your scripts
+      run: |
+        python collect_data-4h-daily.py
+
+    - name: Upload to Kaggle
+      run: |
+        kaggle datasets version -p ./datasets -m "Daily update" --dir-mode skip
