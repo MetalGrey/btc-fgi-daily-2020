@@ -3,7 +3,7 @@ name: Daily Dataset Update
 on:
   schedule:
     - cron: '0 6 * * *'  
-  workflow_dispatch:    
+  workflow_dispatch:
 
 jobs:
   update-dataset:
@@ -24,16 +24,37 @@ jobs:
         pip install -r requirements.txt
         pip install kaggle
 
-    - name: Setup Kaggle credentials
+    - name: Configure Kaggle API
+      env:
+        KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+        KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
       run: |
         mkdir -p ~/.kaggle
-        echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
+        echo "{\"username\":\"$KAGGLE_USERNAME\",\"key\":\"$KAGGLE_KEY\"}" > ~/.kaggle/kaggle.json
         chmod 600 ~/.kaggle/kaggle.json
 
-    - name: Run your scripts
+    - name: Run data collection scripts
       run: |
-        python collect_data-4h-daily.py
+        python collect_data-1h.py
+        python collect_data-30m.py
+        python collect_data-15m.py
+        
+    - name: Show dataset folder contents
+      run: ls -la datasets
 
-    - name: Upload to Kaggle
+    - name: Commit and push changes to GitHub
       run: |
-        kaggle datasets version -p ./datasets -m "Daily update" --dir-mode skip
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add datasets
+        git commit -m "📊 Daily dataset update from workflow" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Try to create dataset on Kaggle (first time only)
+      continue-on-error: true
+      run: kaggle datasets create -p ./datasets --dir-mode skip
+
+    - name: Push new version to Kaggle
+      run: kaggle datasets version -p ./datasets -m "Daily update" --dir-mode skip
