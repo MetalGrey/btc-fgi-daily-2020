@@ -35,9 +35,8 @@ jobs:
 
     - name: Run data collection scripts
       run: |
-        python collect_data-1h.py
-        python collect_data-30m.py
-        python collect_data-15m.py
+        python collect_data-4h-daily.py
+
         
     - name: Show dataset folder contents
       run: ls -la datasets
