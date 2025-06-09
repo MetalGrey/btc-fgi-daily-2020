@@ -1,6 +1,8 @@
 
 # 📈 BTCUSDT 4h OHLC + Fear & Greed Index (from 2020-03-25)
 
+## [Kaggle⭐](https://www.kaggle.com/datasets/metalgrey/btc-usdt-4h-ohlc-fgi-daily-2020)
+
 This repository contains a clean and ready-to-use dataset of **Bitcoin (BTC/USDT)** 4-hour OHLC data enriched with the **Crypto Fear & Greed Index (FGI)** starting from **2020-03-25**.
 
 It is ideal for time-series analysis, sentiment-based strategies, algorithmic trading, and machine learning tasks.
