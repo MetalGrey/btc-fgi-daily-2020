@@ -21,7 +21,7 @@ df_combined = pd.concat([df_new, df_existing], ignore_index=True)
 df_combined.drop_duplicates(subset=["timestamp"], inplace=True)
 df_combined.sort_values("timestamp", ascending=False, inplace=True) 
 
-url = "https://api.alternative.me/fng/?limit=20&format=json"
+url = "https://api.alternative.me/fng/?limit=100&format=json"
 response = requests.get(url)
 data = response.json()["data"]
 fear_df = pd.DataFrame(data)
@@ -31,7 +31,7 @@ fear_df['value'] = fear_df['value'].astype(int)
 df_combined["date"] = df_combined["timestamp"].dt.date
 fear_df["date"] = fear_df["timestamp"].dt.date
 
-latest_fgi_dates = fear_df["date"].unique()[:20]
+latest_fgi_dates = fear_df["date"].unique()[:100]
 fear_df_latest = fear_df[fear_df["date"].isin(latest_fgi_dates)]
 
 df_combined = df_combined.copy()
