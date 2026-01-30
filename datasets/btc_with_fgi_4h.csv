@@ -1,4 +1,5 @@
 timestamp,open,close,high,low,Fear & Greed Index,Fear & Greed Classification
+2026-01-30 12:00:00,82694.0,83059.0,83059.0,82108.0,16.0,Extreme Fear
 2026-01-30 08:00:00,82558.0,82715.0,83167.0,82052.0,16.0,Extreme Fear
 2026-01-30 04:00:00,84564.0,82479.0,84590.0,81315.0,16.0,Extreme Fear
 2026-01-30 00:00:00,83860.0,84570.0,84570.0,83751.0,16.0,Extreme Fear
