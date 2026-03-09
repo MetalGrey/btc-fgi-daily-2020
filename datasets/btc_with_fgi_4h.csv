@@ -1,4 +1,5 @@
 timestamp,open,close,high,low,Fear & Greed Index,Fear & Greed Classification
+2026-03-09 08:00:00,67197.0,67482.0,67993.0,66990.0,8.0,Extreme Fear
 2026-03-09 04:00:00,65963.0,67097.0,67422.0,65963.0,8.0,Extreme Fear
 2026-03-09 00:00:00,67298.0,66036.0,67396.0,65727.0,8.0,Extreme Fear
 2026-03-08 20:00:00,67199.0,67317.0,67416.0,66791.0,12.0,Extreme Fear
